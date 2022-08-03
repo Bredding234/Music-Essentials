@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	let navbar;
 	if (isLoggedIn) {
