@@ -74,13 +74,22 @@ function SignUp() {
 							autoComplete='new-password'
 						/>
 					</div>
+
+					<div className='flex gap-3 items-center mt-2'>
+						<Button variant='contained' className='order-2 bg-black'>
+							<Link to='/'>Sign Up</Link>
+						</Button>
+						<a className='order-1'> Forgot Password? </a>
+
+						<Button
+							className='order-3 bg-black'
+							variant='contained'
+							type='button'>
+							<Link to='/login'>Login</Link>
+						</Button>
+					</div>
 				</form>
-				<Button
-					style={{ background: 'black', position: 'relative', left: '50%' }}
-					variant='contained'>
-					<Link to='/'> Sign Up</Link>
-				</Button>
-				<a> Forgot Password? </a>
+
 				<div
 					style={{
 						display: 'flex',
@@ -97,8 +106,8 @@ function SignUp() {
 					<div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
 				</div>
 				<div
-					className='social-container flex gap-4'
-					style={{ position: 'relative', left: '20%' }}>
+					className='social-container flex gap-4 mt-2'
+					style={{ position: 'relative', left: '30%' }}>
 					{/* <h3>Social Follow</h3> */}
 					<a
 						href='https://www.youtube.com/c/jamesqquick'
@@ -120,16 +129,6 @@ function SignUp() {
 						className='instagram social'>
 						<FaInstagram size={35} />
 					</a>
-					<Button
-						style={{
-							background: 'black',
-							position: 'relative',
-							left: '35%',
-							top: '10%',
-						}}
-						variant='contained'>
-						<Link to='/login'>Login</Link>
-					</Button>
 				</div>
 			</div>
 		</div>
