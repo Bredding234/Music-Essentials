@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
@@ -7,6 +8,49 @@ const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
 
 
 function SignUp() {
+	const [firstName, setfirstName] = useState(' ');
+	const [lastName, setlastName] = useState(' ');
+	const [email, setEmail] =  useState(' ');
+	const [passWrd, setPassword] =  useState(' ');
+	const [confirmPassword, setconfirmPassword] =  useState(' ');
+
+	const handlefirstNameChange = (value) => {
+		setfirstName(value);
+	};
+	const handlelastNameChange = (value) => {
+		setlastName(value);
+	};
+	const handleEmailChange = (value) => {
+		setEmail(value);
+	};
+	const handlePasswordChange = (value) => {
+		setPassword(value);
+	};
+	const handleconfirmPasswordChange = (value) => {
+		setconfirmPassword(value);
+	};
+	
+	const handleSave = () => {
+		const data = {
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
+			passWrd: passWrd,
+			confirmPassword: confirmPassword,
+			IsActive : 1
+		};
+		const url = 'https://localhost:44372/api/Test/Registration';
+		axios.post(url, data).then((result) =>{
+			//if(result.data == "Data Inserted.")
+			alert(result.data);
+		
+				//alert(result.data);
+			}).catch((error)=>{
+				alert(error);
+			})
+		
+
+	}
 	return (
 		<div>
 			<div className='form'>
@@ -21,7 +65,9 @@ function SignUp() {
 							type='text'
 							id='firstName'
 							placeholder='First Name'
+							onChange={(e) => handlefirstNameChange(e.target.value) }
 							autoComplete='given-name'
+
 						/>
 					</div>
 					<div className='lastname'>
@@ -35,6 +81,8 @@ function SignUp() {
 							id='lastName'
 							className='form__input'
 							placeholder='LastName'
+							onChange={(e) => handlelastNameChange(e.target.value) }
+
 							autoComplete='family-name'
 						/>
 					</div>
@@ -48,6 +96,8 @@ function SignUp() {
 							id='email'
 							className='form__input'
 							placeholder='Email'
+							onChange={(e) => handleEmailChange(e.target.value) }
+
 							autoComplete='email'
 						/>
 					</div>
@@ -61,6 +111,8 @@ function SignUp() {
 							type='password'
 							id='password'
 							placeholder='Password'
+							onChange={(e) => handlePasswordChange(e.target.value) }
+
 							autoComplete='new-password'
 						/>
 					</div>
@@ -74,12 +126,13 @@ function SignUp() {
 							type='password'
 							id='confirmPassword'
 							placeholder='Confirm Password'
+							onChange={(e) => handleconfirmPasswordChange(e.target.value) }
 							autoComplete='new-password'
 						/>
 					</div>
 
 					<div className='flex gap-3 items-center mt-3 ' style={{ position:'relative', left: '20%' }}>
-						<Button variant='contained' className='order-2 bg-black'>
+						<Button type= "button" variant='contained' className='order-2 bg-black' onClick={() => handleSave()}>
 							<Link to='/'>Sign Up</Link>
 						</Button>
 						<a className='order-1'  > Forgot Password? </a>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
@@ -7,6 +8,35 @@ const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+currentYear;
 
 
 function Login() {
+	const [userName, setuserName] = useState(' ');
+	const [password, setpassword] = useState(' ');
+
+	const handleuserNameChange = (value) => {
+		setuserName(value);
+	};
+	const handlePasswordChange = (value) => {
+		setpassword(value);
+	};
+
+	const handleLogin = () => {
+		const data = {
+			userName: userName,
+			password: password,
+			
+		};
+		const url = 'https://localhost:44372/api/Test/Login';
+		axios.post(url, data).then((result) =>{
+			//if(result.data == "Data Inserted.")
+			alert(result.data);
+		
+				//alert(result.data);
+			}).catch((error)=>{
+				alert(error);
+			})
+		
+
+	}
+
 	return (
 		<div>
 			<div className='form'>
@@ -21,6 +51,7 @@ function Login() {
 							type='text'
 							id='Username'
 							placeholder='Username'
+							onChange={(e) => handleuserNameChange(e.target.value) }
 							autoComplete='given-name'
 						/>
 					</div>
@@ -34,6 +65,7 @@ function Login() {
 							type='password'
 							id='password'
 							placeholder='Password'
+							onChange={(e) => handlePasswordChange(e.target.value) }
 							autoComplete='new-password'
 						/>
 					</div>
@@ -46,6 +78,7 @@ function Login() {
 						<Button
 							className='order-3 bg-black'
 							variant='contained'
+							onClick={() => handleLogin()}
 							type='button'>
 							<Link to='/login'>Login</Link>
 						</Button>
