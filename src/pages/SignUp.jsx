@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '@mui/material/Button';
+import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-const currentYear = (new Date().getFullYear());
-const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
-
 
 function SignUp() {
 	const [firstName, setfirstName] = useState(' ');
@@ -135,7 +133,7 @@ function SignUp() {
 						<Button type= "button" variant='contained' className='order-2 bg-black' onClick={() => handleSave()}>
 							<Link to='/'>Sign Up</Link>
 						</Button>
-						<a className='order-1'  > Forgot Password? </a>
+						<a className='order-1'> Forgot Password? </a>
 
 						<Button
 							className='order-3 bg-black'
@@ -151,8 +149,7 @@ function SignUp() {
 						display: 'flex',
 						flexDirection: 'row',
 						alignItems: 'center',
-						marginTop: '2%'
-
+						marginTop: '2%',
 					}}>
 					<div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
 
@@ -164,45 +161,37 @@ function SignUp() {
 				</div>
 				<div
 					className='social-container flex gap-4 mt-2'
-          id='social-media'
-					style={{ position: 'relative', left: '30%' }}
-          >
+					id='social-media'
+					style={{ position: 'relative', left: '30%' }}>
 					{/* <h3>Social Follow</h3> */}
-					<a 
+					<a
 						href='https://www.youtube.com/c/jamesqquick'
 						className='youtube social'
-            style={{color:'black'}}>
+						style={{ color: 'black' }}>
 						<FaYoutube className='hover:text-blue-600' size={35} />
 					</a>
 					<a
 						href='https://www.facebook.com/learnbuildteach/'
 						className='facebook social'
-            style={{color:'black'}}>
-						<FaFacebook className= 'hover:text-blue-600' size={35} />
+						style={{ color: 'black' }}>
+						<FaFacebook className='hover:text-blue-600' size={35} />
 					</a>
 					<a
 						href='https://www.twitter.com/jamesqquick'
 						className='twitter social '
-            style={{color:'black'}}>
+						style={{ color: 'black' }}>
 						<FaTwitter className='hover:text-blue-600' size={35} />
 					</a>
 					<a
 						href='https://www.instagram.com/learnbuildteach'
 						className='instagram social'
-            style={{color:'black'}}>
+						style={{ color: 'black' }}>
 						<FaInstagram className='hover:text-blue-600' size={35} />
 					</a>
 				</div>
 			</div>
-
-   <footer class="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed",
-          left: 0,
-          bottom: 0,
-          right: 0}}>
- Copyright © { yearTxt } Alrights Reserved.
-  </footer>	
-      
-      </div>
+			<Footer />
+		</div>
 	);
 }
 

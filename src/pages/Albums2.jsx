@@ -97,7 +97,7 @@ function Albums2() {
 
             );
           })} <br />
-                      <p style={{ color: "black", position: "absolute", top: "190%",  bottom: 0, left: 0, right: 0, left: 0, textAlign: "center", width: "100%", fontSize: "1 rem" }}> {albums.copyrights[0].text} </p> <br /> <br /><br /><br />
+                      <p style={{ color: "black", position: "absolute", top: "190%",  bottom: '0',  right: '0', left: '0', textAlign: "center", width: "100%", fontSize: "1 rem" }}> {albums.copyrights[0].text} </p> <br /> <br /><br /><br />
                      
                       <footer className="footer" style={{  marginTop: "1 rem",  padding: "1 rem",  textAlign:'center', color: "white", backgroundColor: "black",  position: "fixed",  bottom: "0",  left: "0",  width: "100%" 
           }}>

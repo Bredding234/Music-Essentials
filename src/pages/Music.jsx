@@ -114,7 +114,7 @@ return (
       <p style={{ color: "black", textAlign: "center", fontSize: "25px" }}>
         {" "}
         Search for artist
-      </p>
+      </p> <br /> <br /> 
       <InputGroup className="mb-1" size="sm">
         <FormControl
           type="input"

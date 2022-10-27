@@ -16,12 +16,12 @@ const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
     const [searchInput, setSearchInput] = useState("");
     const [accessToken, setAccessToken] = useState("");
-    const [albums, setAlbums] = useState([]);
-    const [albums2, setAlbums2] = useState([]);
-    const [albums3, setAlbums3] = useState([]);
-    const [albums4, setAlbums4] = useState([]);
-    const [albums5, setAlbums5] = useState([]);
-    const [albums6, setAlbums6] = useState([]);
+    let [albums, setAlbums] = useState({}); 
+    const [albums2, setAlbums2] = useState({});
+    const [albums3, setAlbums3] = useState({});
+    const [albums4, setAlbums4] = useState({});
+    const [albums5, setAlbums5] = useState({});
+    const [albums6, setAlbums6] = useState({});
  
     const [value, setValue] = React.useState("1");
  
@@ -69,9 +69,9 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
     fetch('https://api.spotify.com/v1/albums/2ZytN2cY4Zjrr9ukb2rqTP', authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
-        console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums(data);
-        console.log( { albums }); // empty object
+        console.log( data  ); // works(displays playlist based the specific one I passed it).
+        setAlbums({data});
+        // console.log( albums ); // empty object
         });
       });
  
@@ -99,8 +99,8 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
         console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums2(data);
-        console.log({ albums2 }); // empty object
+        setAlbums2({data});
+        // console.log({ albums2 }); // empty object
         });
     });
  
@@ -125,8 +125,8 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
         console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums3(data);
-        console.log({ albums3 }); // empty object
+        setAlbums3({data});
+        // console.log({ albums3 }); // empty object
         });
     });
 
@@ -154,8 +154,8 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
         console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums4(data);
-        console.log({ albums4 }); // empty object
+        setAlbums4({data});
+        // console.log({ albums4 }); // empty object
         });
     });
 
@@ -178,8 +178,8 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
         console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums5(data);
-        console.log({ albums5 }); // empty object
+        setAlbums5({data});
+        // console.log({ albums5 }); // empty object
         });
     });
  
@@ -204,14 +204,18 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         .then((response) => response.json())
         .then((data) => {  
         console.log( { data } ); // works(displays playlist based the specific one I passed it).
-        setAlbums6(data);
-        console.log({ albums6 }); // empty object
+        setAlbums6({data});
+        // console.log({ albums6.data.artists }); // empty object
         });
     });
  
  
     //5r36AJ6VOJtp00oxSkBZ5h
 }, []);
+
+// <- this console log shows the object is actually) (so will that fix the issue?)
+//console.log("data: " + albums.data)  <- you need to add .data after albums then access the data like you were
+
   return (
     <div>
    
@@ -223,12 +227,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
     <Row style={{display: 'flex'}}>
  
         <div className="imageone">
- 
- 
-          <p className="absolute top-[26%] left-[10%] font-Georgia text-[25px]"> { albums.name } </p> <br/>
-          <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[35%] left-[7%] text-aliceblue text-[20px]"> Album By {albums.artists[0].name} </p> <br/>
-          <p className="absolute top-[32%] left-[10%] text-[15px]"> { albums.total_tracks } songs - { albums.release_date}  </p>
-        <Card.Img src={albums.images[0].url } style={{  border: '2px solid black' }}className="absolute bottom-8 left-20 w-[300px] h-[300px]" />
+          <p style={{ color: 'red'}} className="absolute top-[26%] left-[10%] font-Georgia text-[25px]"> { albums.data.artists[0].name } </p> <br/>
+          <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[35%] left-[7%] text-aliceblue text-[20px]"> Album By {albums.data.artists.name} </p> <br/>
+          <p className="absolute top-[32%] left-[10%] text-[15px]"> { albums.total_tracks } songs - { albums.data.release_date}  </p>
+        <Card.Img src={albums.data.images.url } style={{  border: '2px solid black' }}className="absolute bottom-8 left-20 w-[300px] h-[300px]" />
           {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
           <div className="overlay">
                  <div className="content">
@@ -240,10 +242,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
         </div>
  
 <div className="imagetwo">
-    <p className="absolute top-[28%] left-[42%] font-Georgia text-[25px]"> { albums2.name } </p> <br/>
-    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[36%] left-[42%] text-aliceblue text-[20px]"> Album By {albums2.artists[0]} </p> 
-    <p className="absolute top-[33%] left-[44%] text-[15px]"> { albums2.total_tracks } songs - { albums2.release_date}  </p>
-    <Card.Img src={albums2.images[0].url} className="absolute bottom-6 left-[40%] w-[300px] h-[300px]" />
+    <p className="absolute top-[28%] left-[42%] font-Georgia text-[25px]"> { albums2.data.name } </p> <br/>
+    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[36%] left-[42%] text-aliceblue text-[20px]"> Album By {albums2.data.artists.name} </p> 
+    <p className="absolute top-[33%] left-[44%] text-[15px]"> { albums2.data.total_tracks } songs - { albums2.data.release_date}  </p>
+    <Card.Img src={albums2.data.images.url} className="absolute bottom-6 left-[40%] w-[300px] h-[300px]" />
     {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
     <div className="overlay2">
                  <div className="content2">
@@ -255,10 +257,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
 </div>
  
 <div className = "imagethree" style={{  position: 'relative', right: '-30%', marginTop: '20%'}} >
-    <p className="absolute top-[-19rem] left-[39%] font-Georgia text-[25px]"> { albums3.name } </p> <br/>
-    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-17rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums3.artists[0].name } </p> <br/>
-    <p className="absolute top-[-15rem] left-[44%] text-[15px]"> { albums3.total_tracks } songs - { albums3.release_date}  </p>
-    <Card.Img src={albums3.images[0].url } className="absolute bottom-[-17px] left-[40%] w-[300px] h-[300px]" />
+    <p className="absolute top-[-19rem] left-[39%] font-Georgia text-[25px]"> { albums3.data.name } </p> <br/>
+    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-17rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums3.data.artists.name } </p> <br/>
+    <p className="absolute top-[-15rem] left-[44%] text-[15px]"> { albums3.data.total_tracks } songs - { albums3.data.release_date}  </p>
+    <Card.Img src={albums3.data.images.url } className="absolute bottom-[-17px] left-[40%] w-[300px] h-[300px]" />
     {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
     <div className="overlay3">
                  <div className="content3">
@@ -274,10 +276,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
 <div className="imagefour" >
  
  
-  <p className="absolute top-[-22rem] left-[10%] font-Georgia text-[25px]"> { albums4.name } </p> <br/>
-  <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-19rem] left-[7%] text-aliceblue text-[20px]"> Album By {  albums4.artists[0].name } </p> <br/>
-  <p className="absolute top-[-20rem] left-[10%] text-[15px]"> { albums4.total_tracks } songs - { albums4.release_date}  </p>
-<Card.Img src={albums4.images[0].url } style={{  border: '2px solid black' }}className="absolute bottom-8 left-20 w-[300px] h-[300px]" />
+  <p className="absolute top-[-22rem] left-[10%] font-Georgia text-[25px]"> { albums4.data.name } </p> <br/>
+  <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-19rem] left-[7%] text-aliceblue text-[20px]"> Album By {  albums4.data.artists.name } </p> <br/>
+  <p className="absolute top-[-20rem] left-[10%] text-[15px]"> { albums4.data.total_tracks } songs - { albums4.data.release_date}  </p>
+<Card.Img src={albums4.data.images.url } style={{  border: '2px solid black' }}className="absolute bottom-8 left-20 w-[300px] h-[300px]" />
   {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
   <div className="overlay4">
          <div className="content4">
@@ -290,10 +292,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
 </div>
  
 <div className="imagefive">
-    <p className="absolute top-[-22rem] left-[42%] font-Georgia text-[25px]"> { albums5.name } </p> <br/>
-    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-18rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums5.artists[0].name } </p> <br/>
-    <p className="absolute top-[-20rem] left-[44%] text-[15px]"> { albums5.total_tracks } songs - { albums5.release_date}  </p>
-    <Card.Img src={albums5.images[0].url } className="absolute bottom-6 left-[40%] w-[300px] h-[300px]" />
+    <p className="absolute top-[-22rem] left-[42%] font-Georgia text-[25px]"> { albums5.data.name } </p> <br/>
+    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-18rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums5.data.artists.name } </p> <br/>
+    <p className="absolute top-[-20rem] left-[44%] text-[15px]"> { albums5.data.total_tracks } songs - { albums5.data.release_date}  </p>
+    <Card.Img src={albums5.data.images.url } className="absolute bottom-6 left-[40%] w-[300px] h-[300px]" />
     {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
     <div className="overlay5">
          <div className="content5">
@@ -306,10 +308,10 @@ fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
 </div>
  
 <div className = "imagesix" style={{  position: 'relative', right: '-30%', marginTop: '34%'}} >
-    <p className="absolute top-[-19rem] left-[39%] font-Georgia text-[25px]"> { albums6.name } </p> <br/>
-    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-16rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums6.artists[0].name } </p> <br/>
-    <p className="absolute top-[-17rem] left-[44%] text-[15px]"> { albums6.total_tracks } songs - { albums6.release_date}  </p>
-    <Card.Img src={albums6.images[0].url } className="absolute bottom-[-17px] left-[40%] w-[300px] h-[300px]" />
+    <p className="absolute top-[-19rem] left-[39%] font-Georgia text-[25px]"> { albums6.data.name } </p> <br/>
+    <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[-16rem] left-[42%] text-aliceblue text-[20px]"> Album By {  albums6.data.artists.name } </p> <br/>
+    <p className="absolute top-[-17rem] left-[44%] text-[15px]"> { albums6.data.total_tracks } songs - { albums6.data.release_date}  </p>
+    <Card.Img src={albums6.data.images.url } className="absolute bottom-[-17px] left-[40%] w-[300px] h-[300px]" />
     {/* <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "90%"}}  />  </a> <br /> <br /> <br /> <br /> <br /> <br />  */}
     <div className="overlay6">
          <div className="content6">

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 // pages
-import LogIn from './pages/LogIn';
+import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Album from './pages/Albums';
 import Albums2 from './pages/Albums2';
@@ -22,7 +22,7 @@ const App = () => {
 			<Navbar />
 			<Routes>
 				<Route path='/'      element={<Home />} />
-				<Route path='/login' element={<LogIn />} />
+				<Route path='/login' element={<SignIn />} />
 				<Route path='/signup' element={<SignUp />} />
 				<Route path='/music' element={<Music />} />
 				<Route path='/genre/' element={<Pop />} />
