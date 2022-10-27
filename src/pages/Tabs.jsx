@@ -250,7 +250,7 @@ return (
   {playlists && playlists.tracks.items.slice(0,20).map((item, i) =>  {
       return (
         
-        <Box sx={{
+        <Box key={i} sx={{
           display: 'flex',
           position: 'relative',
           lineHeight: '7px' ,
