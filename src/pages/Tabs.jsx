@@ -245,12 +245,12 @@ return (
     <div style={{backgroundColor: 'gray'}}>
 
       <h1 style={{marginLeft: 'auto', marginRight: 'auto',fontWeight: 'bold',padding: '30px', textAlign: 'center',  backgroundColor: '#1abc9c', color: 'black',  fontSize: '20px'}}> Popular Pop Playlists</h1> <br />
-      {playlists && <img src={playlists.images[0].url} className="absolute bottom-[19%] left-20 w-[400px] h-[350px]"  /> }
+      {playlists && <img src={playlists.images[0].url} className="absolute bottom-[27%] left-20 w-[400px] h-[350px]"  /> }
 
   {playlists && playlists.tracks.items.slice(0,20).map((item, i) =>  {
       return (
         
-        <Box sx={{
+        <Box key={i} sx={{
           display: 'flex',
           position: 'relative',
           lineHeight: '7px' ,
@@ -279,7 +279,7 @@ return (
 
 <h1 style={{marginLeft: 'auto', marginRight: 'auto', padding: '30px', textAlign: 'center',  backgroundColor: 'red', color: 'white',  fontSize: '20px'}}> New Releases In Pop </h1> <br />
 
-{playlists2 && <img src={playlists2.images[0].url} className="absolute bottom-[-60%] left-20 w-[400px] h-[350px]"  /> }
+{playlists2 && <img src={playlists2.images[0].url} className="absolute bottom-[-46%] left-20 w-[400px] h-[350px]"  /> }
 
 {playlists2 && playlists2.tracks.items.slice(0,20).map((item, i) => {
     return (
@@ -310,7 +310,7 @@ return (
 }  <br /> 
 
 <h1 style={{marginLeft: 'auto', marginRight: 'auto', padding: '30px', textAlign: 'center',  backgroundColor: 'blue', color: 'white',  fontSize: '20px'}}> Pop Throwbacks </h1> <br />
-{playlists3 && <img src={playlists3.images[0].url} className="absolute bottom-[-140%] left-20 w-[400px] h-[350px]"  /> }
+{playlists3 && <img src={playlists3.images[0].url} className="absolute bottom-[-125%] left-20 w-[400px] h-[350px]"  /> }
 {playlists3 && playlists3.tracks.items.slice(0,20).map((item, i) => {
     return (
       
@@ -444,7 +444,7 @@ return (
         {playlists6 && (
           <img
             src={playlists6.images[0].url}
-            className="absolute bottom-[-10%] left-20 w-[400px] h-[350px]"
+            className="absolute bottom-[-5%] left-20 w-[400px] h-[350px]"
           />
         )}
         {playlists6 &&

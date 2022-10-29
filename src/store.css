@@ -1,6 +1,6 @@
 .overlay{
     position: absolute;
-    top: 44%;
+    top: 50%;
     left: 105px;
     right: 0;
     bottom: 0;
@@ -34,7 +34,7 @@
 
 .overlay2{
     position: absolute;
-    top: 44%;
+    top: 50%;
     left: 42%;
     right: 0;
     bottom: 0;

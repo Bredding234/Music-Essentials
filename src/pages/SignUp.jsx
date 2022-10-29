@@ -4,14 +4,12 @@ import Button from '@mui/material/Button';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-
 function SignUp() {
 	const [firstName, setfirstName] = useState(' ');
 	const [lastName, setlastName] = useState(' ');
 	const [email, setEmail] =  useState(' ');
 	const [passWrd, setPassword] =  useState(' ');
 	const [confirmPassword, setconfirmPassword] =  useState(' ');
-
 	const handlefirstNameChange = (value) => {
 		setfirstName(value);
 	};
@@ -27,8 +25,7 @@ function SignUp() {
 	const handleconfirmPasswordChange = (value) => {
 		setconfirmPassword(value);
 	};
-	
-	const handleSave = () => {
+const handleSave = () => {
 		const data = {
 			firstName: firstName,
 			lastName: lastName,
@@ -41,13 +38,10 @@ function SignUp() {
 		axios.post(url, data).then((result) =>{
 			//if(result.data == "Data Inserted.")
 			alert(result.data);
-		
 				//alert(result.data);
 			}).catch((error)=>{
 				alert(error);
 			})
-		
-
 	}
 	return (
 		<div>

@@ -50,7 +50,7 @@ function Albums2() {
         
 
         //Get request with Artist ID grab all the from that artist
-        fetch(`https://api.spotify.com/v1/albums/${params.id}`, authParameters)
+        fetch('https://api.spotify.com/v1/albums/2ZytN2cY4Zjrr9ukb2rqTP', authParameters)
           .then((response) => response.json())
           .then((data) => {
             console.log("Album" +  data );
@@ -77,14 +77,14 @@ function Albums2() {
           <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "100%"}}  />  </a>
           <p className="absolute top-[15%] left-[47%] font-Georgia text-[25px]"> { albums.name } </p> <br/>
           <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[20%] left-[50%] text-aliceblue text-[20px]"> Album By {  albums.artists[0].name } </p> <br/> <br />
-          <p className="absolute top-[25%] left-[50%] text-[15px]"> { albums.total_tracks } songs - { albums.release_date}  </p> 
+          <p className="absolute top-[25%] left-[50%] text-[15px]"> { albums.total_tracks } songs - { albums.release_date}  </p>  <br/> <br /> <br />
           {albums.tracks.items.map((track) => {
             return (
               <Card style={{ width: '18rem', left: '40rem', height: '3.0rem' }} key={track.id}>
 
                 <Card.Body>
                   
-                  <div key={track.id} className="track-image" >
+                  <div key={track.id} className="track-image" > 
 
                     <p className="hover:cyan">{track.name}</p> 
 

@@ -84,13 +84,13 @@ function SignIn() {
 					</div>
 				</form>
 
-				<div
+			<div
 					style={{
 						display: 'flex',
 						flexDirection: 'row',
 						alignItems: 'center',
 						marginTop: '2%',
-					}}>
+			}}>
 					<div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
 
 					<div>
