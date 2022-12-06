@@ -425,8 +425,8 @@ function Tabs2() {
                   padding: "5px",
                 }}
               >
-                {i + 1}.{")"} {item.track.name}
-                {item.track.artists.map((artist) => {
+                {i + 1}.{")"} {item?.track?.name}
+                {item?.track?.artists.map((artist) => {
                   <Box>{artist.name}</Box>;
                 })}
               </Box>

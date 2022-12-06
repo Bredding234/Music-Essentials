@@ -1,191 +1,194 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useRef, useState, useEffect } from "react";
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
+import { Form, Alert } from "react-bootstrap";
+import '/src/signup.css';
+import SignIn from "./SignIn";
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
+
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = '/SignUp';
+
+
 function SignUp() {
-	const [firstName, setfirstName] = useState(' ');
-	const [lastName, setlastName] = useState(' ');
-	const [email, setEmail] =  useState(' ');
-	const [passWrd, setPassword] =  useState(' ');
-	const [confirmPassword, setconfirmPassword] =  useState(' ');
-	const handlefirstNameChange = (value) => {
-		setfirstName(value);
+	const initialValues = { username: "", email: "", password: "",  confirmPassword: "" };
+	const [username, setusername] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setconfirmPassword] = useState("");
+
+	const [formValues, setFormValues] = useState(initialValues);
+	const [formErrors, setFormErrors] = useState({});
+	const [isSubmit, setIsSubmit] = useState(false);
+
+	const [flag, setFlag] = useState(false);
+	const [login, setLogin] = useState(true);
+	
+
+	
+  
+	const handleSubmit = (e) => {
+
+		const { name, value } = e.target;
+		setFormValues({ ...formValues, [name]: value });
+
+	  e.preventDefault();
+
+
+	  setFormErrors(validate(formValues));
+	  setIsSubmit(true);
+	 
+	  if (!username || !email || !password || !confirmPassword) {
+		setFlag(true);
+	  } else {
+		setFlag(false);
+		localStorage.setItem("bredding", JSON.stringify(username));
+		localStorage.setItem("breddingEmail", JSON.stringify(email));
+		localStorage.setItem("breddingPassword",JSON.stringify(password));
+		localStorage.setItem("breddingPassword", JSON.stringify(confirmPassword));
+			console.log("Saved in Local Storage");
+			setusername(JSON.stringify(username));
+			setPassword(JSON.stringify(password));
+		setLogin(!login);
+	  }
 	};
-	const handlelastNameChange = (value) => {
-		setlastName(value);
+
+
+	
+	
+
+  
+	useEffect(() => {
+	  console.log(formErrors);
+	  if (Object.keys(formErrors).length === 0 && isSubmit) {
+		console.log(formValues);
+	  }
+	}, [formErrors]);
+	const validate = (values) => {
+	  const errors = {};
+	  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+	  if (!values.username) {
+		errors.username = "Username is required!";
+	  }
+	  if (!values.email) {
+		errors.email = "Email is required!";
+	  } else if (!regex.test(values.email)) {
+		errors.email = "This is not a valid email format!";
+	  }
+	  if (!values.password) {
+		errors.password = "Password is required";
+	  } else if (values.password.length < 4) {
+		errors.password = "Password must be more than 4 characters";
+	  } else if (values.password.length > 10) {
+		errors.password = "Password cannot exceed more than 10 characters";
+	  }
+	  if (!values.confirmPassword) {
+		errors.confirmPassword = "Confirm password is required";
+	  } else if (values.confirmPassword.length < 4) {
+		errors.confirmPassword = "Confirm password must be more than 4 characters";
+	  } else if (values.confirmPassword.length > 10) {
+		errors.confirmPassword = "Confirm password cannot exceed more than 10 characters";
+	  }
+	  return errors;
 	};
-	const handleEmailChange = (value) => {
-		setEmail(value);
-	};
-	const handlePasswordChange = (value) => {
-		setPassword(value);
-	};
-	const handleconfirmPasswordChange = (value) => {
-		setconfirmPassword(value);
-	};
-const handleSave = () => {
-		const data = {
-			firstName: firstName,
-			lastName: lastName,
-			email: email,
-			passWrd: passWrd,
-			confirmPassword: confirmPassword,
-			IsActive : 1
-		};
-		const url = 'https://localhost:44372/api/Test/Registration';
-		axios.post(url, data).then((result) =>{
-			//if(result.data == "Data Inserted.")
-			alert(result.data);
-				//alert(result.data);
-			}).catch((error)=>{
-				alert(error);
-			})
-	}
-	return (
-		<div>
-			<div className='form'>
-				<form className='form-body'>
-					<div className='username'>
-						<label className='form__label' htmlFor='firstName'>
-							First Name{' '}
-						</label>
-						<input
-							style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-							className='form__input'
-							type='text'
-							id='firstName'
-							placeholder='First Name'
-							onChange={(e) => handlefirstNameChange(e.target.value) }
-							autoComplete='given-name'
+  
+	const handleClick = () => {
+		setLogin(!login);
+	  };
 
-						/>
-					</div>
-					<div className='lastname'>
-						<label className='form__label' htmlFor='lastName'>
-							Last Name{' '}
-						</label>
-						<input
-							style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-							type='text'
-							name=''
-							id='lastName'
-							className='form__input'
-							placeholder='LastName'
-							onChange={(e) => handlelastNameChange(e.target.value) }
 
-							autoComplete='family-name'
-						/>
-					</div>
-					<div className='email'>
-						<label className='form__label' htmlFor='email'>
-							Email{' '}
-						</label>
-						<input
-							style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-							type='email'
-							id='email'
-							className='form__input'
-							placeholder='Email'
-							onChange={(e) => handleEmailChange(e.target.value) }
 
-							autoComplete='email'
-						/>
-					</div>
-					<div className='password'>
-						<label className='form__label' htmlFor='password'>
-							Password{' '}
-						</label>
-						<input
-							style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-							className='form__input'
-							type='password'
-							id='password'
-							placeholder='Password'
-							onChange={(e) => handlePasswordChange(e.target.value) }
 
-							autoComplete='new-password'
-						/>
-					</div>
-					<div className='confirm-password'>
-						<label className='form__label' htmlFor='confirmPassword'>
-							Confirm Password{' '}
-						</label>
-						<input
-							style={{ height: 40, borderColor: 'black', borderWidth: 1 }}
-							className='form__input'
-							type='password'
-							id='confirmPassword'
-							placeholder='Confirm Password'
-							onChange={(e) => handleconfirmPasswordChange(e.target.value) }
-							autoComplete='new-password'
-						/>
-					</div>
 
-					<div className='flex gap-3 items-center mt-3 ' style={{ position:'relative', left: '20%' }}>
-						<Button type= "button" variant='contained' className='order-2 bg-black' onClick={() => handleSave()}>
-							<Link to='/'>Sign Up</Link>
-						</Button>
-						<a className='order-1'> Forgot Password? </a>
+    
 
-						<Button
-							className='order-3 bg-black'
-							variant='contained'
-							type='button'>
-							<Link to='/login'>Login</Link>
-						</Button>
-					</div>
-				</form>
 
-				<div
-					style={{
-						display: 'flex',
-						flexDirection: 'row',
-						alignItems: 'center',
-						marginTop: '2%',
-					}}>
-					<div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
+	return (	
+		<>
+ 
+        <div>
+          {" "}
+          {login ? (
+            <form onSubmit={handleSubmit} style={{marginTop: '10%', marginLeft: '40%'		}}>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: 'bold'}}>Register</h2> <br />
 
-					<div>
-						<p style={{ width: '70px', textAlign: 'center' }}>OR</p>
-					</div>
+              <div className="form-group" style={{width: "50%"}}>
+                <label>Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Username"
+                  name="name"
+                  onChange={(event) => setusername(event.target.value)}
+                />
+              </div>
+			  <p>{formErrors.username}</p>
 
-					<div style={{ flex: 1, height: '1px', backgroundColor: 'black' }} />
-				</div>
-				<div
-					className='social-container flex gap-4 mt-2'
-					id='social-media'
-					style={{ position: 'relative', left: '30%' }}>
-					{/* <h3>Social Follow</h3> */}
-					<a
-						href='https://www.youtube.com/c/jamesqquick'
-						className='youtube social'
-						style={{ color: 'black' }}>
-						<FaYoutube className='hover:text-blue-600' size={35} />
-					</a>
-					<a
-						href='https://www.facebook.com/learnbuildteach/'
-						className='facebook social'
-						style={{ color: 'black' }}>
-						<FaFacebook className='hover:text-blue-600' size={35} />
-					</a>
-					<a
-						href='https://www.twitter.com/jamesqquick'
-						className='twitter social '
-						style={{ color: 'black' }}>
-						<FaTwitter className='hover:text-blue-600' size={35} />
-					</a>
-					<a
-						href='https://www.instagram.com/learnbuildteach'
-						className='instagram social'
-						style={{ color: 'black' }}>
-						<FaInstagram className='hover:text-blue-600' size={35} />
-					</a>
-				</div>
-			</div>
-			<Footer />
-		</div>
+
+              <div className="form-group" style={{width: "50%"}}>
+                <label>Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  placeholder="Enter email"
+                  onChange={(event) => setEmail(event.target.value)}
+                />
+              </div>
+			  <p>{formErrors.email}</p>
+
+              <div className="form-group" style={{width: "50%"}}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  onChange={(event) => setPassword(event.target.value)}
+                />
+              </div>
+			  <p>{ formErrors.password }</p>
+
+			  <div className="form-group" style={{width: "50%"}}>
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter Confirm Password"
+                  onChange={(event) => setconfirmPassword(event.target.value)}
+                />
+              </div>
+			  <p>{formErrors.confirmPassword}</p>
+
+<br/>
+           
+
+        
+              <button type="submit" className="btn btn-dark btn-sm" style={{width: "100px" , height: '30px', fontSize: '15px'}}>
+                Register
+              </button>
+              <p onClick={handleClick} className="forgot-password text-right">
+                Already registered{" "}log in?
+                
+              </p>
+              {flag && (
+                <Alert color="primary" variant="danger">
+                  I got it you are in hurry! But every Field is important!
+                </Alert>
+              )}
+            </form>
+          ) : (
+            <SignIn />
+          )}
+        </div>				<Footer />
+
+    
+    </>
+
 	);
 }
 

@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 //import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import SpotifyPlayer from 'react-spotify-player'
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
 import { useParams } from "react-router-dom";
@@ -76,9 +77,11 @@ function Albums() {
         <div className="mt-20">
           <Card.Img src={albums.images[0].url } className="absolute bottom-7 left-20 w-[400px] h-[350px]" />
           <a href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4"> <PlayCircleOutlineIcon className="hover:bg-zinc-600 "  style= {{  position: "absolute", left: "20%", top: "100%"}}  />  </a>
+          
           <p className="absolute top-[15%] left-[47%] font-Georgia text-[25px]"> { albums.name } </p> <br/>
           <p href= "https://open.spotify.com/artist/3TVXtAsR1Inumwj472S9r4" className="absolute top-[20%] left-[50%] text-aliceblue text-[20px]"> Album By {  albums.artists[0].name } </p> <br/> <br />
-          <p className="absolute top-[25%] left-[50%] text-[15px]"> { albums.total_tracks } songs - { albums.release_date}  </p> 
+          <p className="absolute top-[25%] left-[50%] text-[15px]"> { albums.total_tracks } songs - { albums.release_date}  </p>  <br/> <br />
+         
           {albums.tracks.items.map((track) => {
             return (
               <Card style={{ width: '18rem', left: '40rem', height: '3.0rem' }} key={track.id}>
@@ -93,11 +96,20 @@ function Albums() {
 
                   {/* <Card.Img src={albums.images[0].url} /> */}
                 </Card.Body>
+               
 
-              </Card>       
+
+              </Card> 
+                
 
             );
           })} <br />
+          <div style={{ position: 'relative',top: '-15rem', left: '10rem'}}>
+
+            <SpotifyPlayer
+                  uri= {albums.uri}
+                />             </div>
+
                       <p style={{ color: "black", position: "absolute", top: "190%",  bottom: '0', right: '0', left: '0', textAlign: "center", width: "100%", fontSize: "1 rem" }}> {albums.copyrights[0].text} </p> <br /> <br /><br /><br />
                      
                       <footer className="footer" style={{  marginTop: "1 rem",  padding: "1 rem",  textAlign:'center', color: "white", backgroundColor: "black",  position: "fixed",  bottom: "0",  left: "0",  width: "100%" 

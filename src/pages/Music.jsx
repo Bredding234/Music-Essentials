@@ -3,7 +3,11 @@ import React, { useEffect, useState } from "react";
 import { MDBRipple } from "mdb-react-ui-kit";
 import Footer from './footer'
 import Tabs2 from './Tabs2';
+import Navbar from '/src/components/Navbar'
 import Album from "./Albums";
+import '/src/music.css' 
+import ReactAudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 import {genreData} from '../components/data/data'
 
 const currentYear = (new Date().getFullYear());
@@ -18,6 +22,7 @@ import {
   Row,
   Card,
 } from "react-bootstrap";
+import { data } from "autoprefixer";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
@@ -27,7 +32,83 @@ function Music() {
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
 
+  const musicTracks = [
+    {
+      name: "Memories",
+      src: "https://www.bensound.com/bensound-music/bensound-memories.mp3"
+    },
+    {
+      name: "Creative Minds",
+      src: "https://www.bensound.com/bensound-music/bensound-creativeminds.mp3"
+    },
+    {
+      name: "Acoustic Breeze",
+      src: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3"
+    },
+    {
+      name: "Sunny",
+      src: "https://www.bensound.com/bensound-music/bensound-sunny.mp3"
+    },
+    {
+      name: "Tenderness",
+      src: "https://www.bensound.com/bensound-music/bensound-tenderness.mp3"
+    },
+    {
+      name: "Once Again",
+      src: "https://www.bensound.com/bensound-music/bensound-onceagain.mp3"
+    },
+    {
+      name: "Sweet",
+      src: "https://www.bensound.com/bensound-music/bensound-sweet.mp3"
+    },
+    {
+      name: "Love",
+      src: "https://www.bensound.com/bensound-music/bensound-love.mp3"
+    },
+    {
+      name: "Piano Moment",
+      src: "https://www.bensound.com/bensound-music/bensound-pianomoment.mp3"
+    },
+    {
+      name: "E.R.F",
+      src: "https://www.bensound.com/bensound-music/bensound-erf.mp3"
+    },
+    {
+      name: "Dreams",
+      src: "https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+    },
+    {
+      name: "A Day To Remember",
+      src:
+        "https://www.bensound.com/royalty-free-music/track/a-day-to-remember-wedding-music"
+    },
+    {
+      name: "Adventure",
+      src: "https://www.bensound.com/bensound-music/bensound-adventure.mp3"
+    },
+    {
+      name: "Photo Album",
+      src: "https://www.bensound.com/bensound-music/bensound-photoalbum.mp3"
+    },
+    {
+      name: "November",
+      src: "https://www.bensound.com/bensound-music/bensound-november.mp3"
+    }
+  ];
 
+  const [trackIndex, setTrackIndex] = useState(0);
+
+  const handleClickPrevious = () => {
+    setTrackIndex((currentTrack) =>
+      currentTrack === 0 ? musicTracks.length - 1 : currentTrack - 1
+    );
+  };
+
+  const handleClickNext = () => {
+    setTrackIndex((currentTrack) =>
+      currentTrack < musicTracks.length - 1 ? currentTrack + 1 : 0
+    );
+  };
 
  useEffect(() => {
     // API ACCESS TOKEN
@@ -47,8 +128,8 @@ function Music() {
       .then((data) => setAccessToken(data.access_token));
   }, []);
 
-  // Search
-  async function search() {
+// Search
+async function search() {
     console.log("Searching For: " + searchInput);
     // Get request using search to get the Artist ID.
 	var artistParameters = {
@@ -83,8 +164,7 @@ function Music() {
         setAlbums(data.items);
       });
   }
-  console.log(albums);
-  
+  console.log("albums" + albums);
 const [selectOption, setSelectOption ] = useState();
 
 const [activeGenre, setActiveGenre] = useState();
@@ -108,8 +188,9 @@ const hideHover = () => {
   };
 
 return (
-<div>		
-    <div id="SearchMusic" style={{backgroundColor: 'white'}}>		
+<div className="bodyPages" >	
+	
+    <div id="SearchMusic" style={{}} >		
       {/* style={{ height: 40, borderColor: 'black', borderWidth: 1, display: 'block', marginRight: 'auto', marginLeft: 'auto' }} */}
       <p style={{ color: "black", textAlign: "center", fontSize: "25px" }}>
         {" "}
@@ -133,7 +214,7 @@ return (
       </InputGroup>
       <Button
         style={{
-          color: "black",
+          color: "white",
           position: "relative",
           left: "64%",
           top: "-38px",
@@ -156,21 +237,22 @@ return (
               //console.log();
               return (
                 <Link key={album.id} to={`/album/${album.id}`}>
-                  <Card>
-                    <Card.Img src={album.images[0].url} />
+                  <Card   style={{ cursor: "pointer" }}>
+                    <Card.Img src={album.images[0].url} /> <br /> 
                     <Card.Body>
-                      <Card.Title> {album.name}</Card.Title>
-                    </Card.Body>
-                  </Card>
+                      <Card.Title className="ml-3"> {album.name}</Card.Title>
+                      <Card.Title className="text-muted"> {album.artists[0].name }</Card.Title>
+
+                    </Card.Body> 
+                  </Card><br /> <br />
                 </Link>
               );
             })}
           </Row>
         )}
       </Container>
-
       <div className="flex border justify-center items-center gap-3">
-        <label htmlFor="genre">Genre</label>
+        <label htmlFor="genre" style={{color: 'white' }}>Genre</label>
         <select id="genre" className="w-42 border-2 border-gray-700 rounded-lg" value={selectOption} onChange={e => handleSelectChange(e)} >
           <option value="default">Choose Genre</option>
           { genreData.map(genre => (
@@ -196,7 +278,12 @@ return (
             <div style={{position: 'relative',textDecoration: 'none', fontSize:'30px', padding: '0',textAlign: 'center', overflow: 'hidden', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>   { activeGenre.label } </div>
            
           </div> </a>) }
-              
+  <div style={{ position: 'relative', top: '20rem' }}>
+
+
+
+    </div>
+ 
 
 
 </div>
@@ -205,7 +292,7 @@ return (
 	  
     
     
-    <footer class="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed",
+    <footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed",
           left: 0,
           bottom: 0,
           right: 0}}>

@@ -3,6 +3,21 @@ import React, { useEffect, useState } from "react";
 import { MDBRipple } from "mdb-react-ui-kit";
 import Footer from './footer'
 import Album from "./Albums";
+import {useNavigate} from 'react-router-dom';
+import SpotifyWebApi from "spotify-web-api-node"
+import Navbar from '/src/components/Navbar'
+import '/src/home.css';
+import '/src/store.css';
+import Player from "./Player"
+import axios from "axios"
+import ReactAudioPlayer from "react-h5-audio-player";
+import SpotifyPlayer from 'react-spotify-player'
+import "react-h5-audio-player/lib/styles.css";
+import ImageSlider from '/src/ImageS.jsx'; 
+import { NewsContextProvider2 } from '/src/NewsContext2.jsx';
+import News3 from "/src/News3.jsx";
+import '/src/News2.css';
+import { SliderData } from '/src/SliderData.js';
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
 
@@ -23,6 +38,118 @@ function Home() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [data, setData] = useState();
+  const [playingTrack, setPlayingTrack] = useState()
+  const [lyrics, setLyrics] = useState("")
+
+
+  const musicTracks = [
+    {
+      name: "Memories",
+      src: "https://www.bensound.com/bensound-music/bensound-memories.mp3"
+    },
+    {
+      name: "Creative Minds",
+      src: "https://www.bensound.com/bensound-music/bensound-creativeminds.mp3"
+    },
+    {
+      name: "Acoustic Breeze",
+      src: "https://www.bensound.com/bensound-music/bensound-acousticbreeze.mp3"
+    },
+    {
+      name: "Sunny",
+      src: "https://www.bensound.com/bensound-music/bensound-sunny.mp3"
+    },
+    {
+      name: "Tenderness",
+      src: "https://www.bensound.com/bensound-music/bensound-tenderness.mp3"
+    },
+    {
+      name: "Once Again",
+      src: "https://www.bensound.com/bensound-music/bensound-onceagain.mp3"
+    },
+    {
+      name: "Sweet",
+      src: "https://www.bensound.com/bensound-music/bensound-sweet.mp3"
+    },
+    {
+      name: "Love",
+      src: "https://www.bensound.com/bensound-music/bensound-love.mp3"
+    },
+    {
+      name: "Piano Moment",
+      src: "https://www.bensound.com/bensound-music/bensound-pianomoment.mp3"
+    },
+    {
+      name: "E.R.F",
+      src: "https://www.bensound.com/bensound-music/bensound-erf.mp3"
+    },
+    {
+      name: "Dreams",
+      src: "https://www.bensound.com/bensound-music/bensound-dreams.mp3"
+    },
+    {
+      name: "A Day To Remember",
+      src:
+        "https://www.bensound.com/royalty-free-music/track/a-day-to-remember-wedding-music"
+    },
+    {
+      name: "Adventure",
+      src: "https://www.bensound.com/bensound-music/bensound-adventure.mp3"
+    },
+    {
+      name: "Photo Album",
+      src: "https://www.bensound.com/bensound-music/bensound-photoalbum.mp3"
+    },
+    {
+      name: "November",
+      src: "https://www.bensound.com/bensound-music/bensound-november.mp3"
+    }
+  ];
+
+  const [trackIndex, setTrackIndex] = useState(0);
+
+  const handleClickPrevious = () => {
+    setTrackIndex((currentTrack) =>
+      currentTrack === 0 ? musicTracks.length - 1 : currentTrack - 1
+    );
+  };
+
+  const handleClickNext = () => {
+    setTrackIndex((currentTrack) =>
+      currentTrack < musicTracks.length - 1 ? currentTrack + 1 : 0
+    );
+  };
+
+
+
+const chooseTrack = (track) => {
+    setPlayingTrack(track)
+    setSearch("")
+    setLyrics("")
+  };
+
+  const spotifyApi = new SpotifyWebApi({
+    clientId: CLIENT_ID,
+  })
+
+  const apiKey = "175ecdd94ca5474b90527666e7db7a3e";
+// size may also be a plain string using the presets 'large' or 'compact'
+const size = {
+  width: '100%',
+  height: 300,
+};
+const view = 'list'; // or 'coverart'
+const theme = 'black'; // or 'white'
+  const navigate  = useNavigate();
+
+  const navigateContact = () => {
+     navigate('/Contact');
+ };
+  const navigateMusic = () => {
+     navigate('/music');
+ };
+
 
 
 
@@ -42,7 +169,24 @@ function Home() {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
+
+
+   
   }, []);
+  useEffect(() => {
+    if (!playingTrack) return
+
+    axios
+      .get("http://localhost:3001/lyrics", {
+        params: {
+          track: playingTrack.title,
+          artist: playingTrack.artist,
+        },
+      })
+      .then(res => {
+        setLyrics(res.data.lyrics)
+      })
+  }, [playingTrack]);
 
   // Search
   async function search() {
@@ -92,48 +236,41 @@ function Home() {
     setIsHovering(false);
   };
 
+
+
   return (
-    <div>
-		<div style={{ backgroundColor: 'black' }} href="#SearchMusic">
+<div>  
+
+		<div className="backgroundWallpaper" style={{ backgroundColor: 'black', height: '40rem', width: '100rem'}} href="#SearchMusic">
 			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
-			<img  style={{width: "110%",marginLeft: 'auto', marginRight: 'auto', padding: '5px' }} src="https://i0.wp.com/www.xsnoize.com/wp-content/uploads/2019/11/luke-chesser-pFqrYbhIAXs-unsplash.jpg"  />
+			<img  style={{width: "100%", height: '101%', position: 'relative'  ,   padding: '5px' }} src="https://i.pinimg.com/originals/f0/18/c6/f018c6cb14e8b3772e7a6d040e497cf5.jpg"  />
 		</div>
-<div id="SearchMusic" style={{backgroundColor: 'white'}}>		
+  <div style={{ backgroundColor: 'grey', height: '20%', width: '80%'}}>
+			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
+		</div>
+<div className="genre-image" >
+  <h2 style={{fontSize:'2.5rem', textAlign:'center', fontWeight: 'bold'}}> Pick Genre </h2> <br /> <br />
+  <ImageSlider slides={SliderData} />
+</div> 
+  <div id="SearchMusic" >		
       {/* style={{ height: 40, borderColor: 'black', borderWidth: 1, display: 'block', marginRight: 'auto', marginLeft: 'auto' }} */}
-      <p style={{ color: "black", textAlign: "center", fontSize: "25px" }}>
-        {" "}
-        Search for artist
-      </p>
-      <InputGroup className="mb-1" size="sm">
-        <FormControl
-          type="input"
-          onKeyPress={(event) => {
-            if (event.key == "Enter") {
-              search();
-            }
-          }}
-          onChange={(event) => { 
-			search()
-			setSearchInput(event.target.value)}}
-          id="firstName"
-          placeholder="Search for artist"
-          autoComplete="given-name"
-        />
-      </InputGroup>
-      <Button
-        style={{
-          color: "black",
-          position: "relative",
-          left: "64%",
-          top: "-38px",
-        }}
-        onClick={() => {
-          search;
-        }}
-      >
-        {" "}
-        Search{" "}
-      </Button>
+      <div style={{backgroundColor: 'white', height: '40rem'}}>
+
+      <h2 style={{ color: "black", position: "relative", left: '50%' , top: '30%',  fontSize: "30px", fontWeight: "700", height: '90%', fontFamily: 'Poppins,sans-serif', lineHeight: '1.4074' }}>
+        {" "}		
+
+      Visit the <a href="/music"> Music  </a> Page       </h2>    
+          	<img  style={{ width: '40%', height: '60%', position: 'relative', bottom: '75%', Left: '10%' }} src="https://wallpaperaccess.com/full/1502779.jpg"  />
+
+
+      <p style={{ fontSize:'20px',display: 'flex', padding: '5px' , position: 'relative', bottom: '45rem' , left: '42%' }}> Take a look at the music link above, you will be able to seach for your favorite artist <br /> and can choose any song or album. The customer will have the option to choose from <br /> any genre of their music interest.  </p>
+
+      </div>
+
+
+
+
+<div className="genre-image">
 
       <Container>
         {!albums ? (
@@ -159,110 +296,132 @@ function Home() {
       </Container>
 
       <div className="flex border justify-center items-center gap-3">
-        <label htmlFor="genre">Genre</label>
-        <select id="genre" className="w-42 border-2 border-gray-700 rounded-lg">
-          <option value="default">Choose Genre</option>
-          <option value="Pop">Pop</option>
-          <option value="Hip Hop">Hip Hop</option>
-          <option value="Rock">Rock</option>
-          <option value="EDM">EDM</option>
-          <option value="R&B"> R&B </option>
-          <option value="Jazz">Jazz</option>
-          <option value="Rock">Rock</option>
-          <option value="Electronic music">Electronic music</option>
-          <option value="Soul Music">Soul Music </option>
-        </select>
+       
       </div>
 
       <Row>
-        <Card className="flex justify-center items-center " style={{backgroundColor: 'blue'}}>
-          <div
-            className="border rounded-lg overflow-hidden relative"
-            onMouseOver={showHover}
-            onMouseLeave={hideHover}
-          >
-            <img
-              src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9wJTIwbXVzaWN8ZW58MHx8MHx8&w=1000&q=80"
-              className="img-fluid shadow-4"
-              alt="..."
-            style={{objectFit: 'cover', Width: '100%',height: '100%' }} />
-            <div className={`${isHovering ? "block" : "hidden"}`}>
-              <a className="text-3xl text-white  absolute top-0 left-0 w-full h-full z-10 grid place-items-center">
-                Pop
-              </a>
-            </div>
-            <div className="hover:bg-zinc-600 transition-hover duration-300 opacity-70  ease-in mix-blend-screen absolute top-0 left-0 w-full h-full"></div>
-          </div>
-        </Card>
 
-        <Card className="flex justify-center items-center " style={{backgroundColor: 'purple'}}>
-          <div
-            className="border rounded-lg overflow-hidden relative"
-            onMouseOver={showHover}
-            onMouseLeave={hideHover}
-          >
-            <img
-              src="https://www.dancemusicnw.com/wp-content/uploads/2014/09/EDM-is-for-everyone-e1410585792428.jpg"
-              className="img-fluid shadow-4 w-full h-full"
-              alt="..."
-            />
-            <div className={`${isHovering ? "block" : "hidden"}`}>
-              <a className="text-3xl text-white  absolute top-0 left-0 w-full h-full z-10 grid place-items-center">
-                Hip Hop
-              </a>
-            </div>
-            <div className="hover:bg-zinc-600 transition-hover duration-300 opacity-70  ease-in mix-blend-screen absolute top-0 left-0 w-full h-full"></div>
-          </div>
-        </Card>
+<Card className="flex justify-center items-center" style={{backgroundColor: 'grey', height: '40rem'}}>
+<div style={{position: 'relative', top: '50%'}}>
+    <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', top: '20%'}}>  Store </h2> <br /> <br />
 
-        <Card className="flex justify-center items-center " style={{backgroundColor: 'grey'}}>
-          <div
-            className="border rounded-lg overflow-hidden relative"
-            onMouseOver={showHover}
-            onMouseLeave={hideHover}
-          >
-            <img
-              src="https://cdn.artphotolimited.com/images/5b9fc1ecac06024957be8806/1000x1000/the-rolling-stones-rock-and-roll-circus.jpg"
-              className="img-fluid shadow-4 w-full h-full"
-              alt="..."
-            />
-            <div className={`${isHovering ? "block" : "hidden"}`}>
-              <a className="text-3xl text-white  absolute top-0 left-0 w-full h-full z-10 grid place-items-center">
-                Rock
-              </a>
-            </div>
-            <div className="hover:bg-zinc-600 transition-hover duration-300 opacity-70  ease-in mix-blend-screen absolute top-0 left-0 w-full h-full"></div>
-          </div>
-        </Card>
+</div>
+
+<div style={{ position: 'relative', top: '50%', left: '-25%'   }}>
+
+      <div className="border overflow-hidden relative" style={{ height: '22rem', width: '19.6rem'}}>
+          <img src='https://media.pitchfork.com/photos/5929b3a1ea9e61561daa6b11/1:1/w_600/a6db7cdb.jpg' style={{ maxHeight:'23rem', maxWidth:'22rem', left: '10%'  }}/>
+         
+          <br />
+          <div className='hover:bg-zinc-600 transition-hover opacity-70 duration-300 ease-in mix-blend-screen absolute top-0 left-0 w-full h-full z-10 grid place-items-center'></div>
+
+        </div>
+        </div>
+
+ <div style={{ position:'relative',  top: '10%', left: '2%'}}>
+
+      <div className="border overflow-hidden " style={{position: 'relative',bottom: '30%', left: '2%', height: '22rem'}}>
+          <img src='https://m.media-amazon.com/images/I/51b4V4ErHUL._SY580_.jpg' style={{ maxHeight:'23rem', maxWidth:'22rem'  }}/>
+         
+          <br />
+          <div className='hover:bg-zinc-600 transition-hover opacity-70 duration-300 ease-in mix-blend-screen absolute top-0 left-0 w-full h-full z-10 grid place-items-center'></div>
+
+        </div>
+    </div>
+    <div style={{ position: 'relative', left: '25%', top: '-39%'}}>
+
+      <div className="border overflow-hidden " style={{position: 'relative', bottom: '40%', left: '30%', height: '21rem'}}>
+          <img src='https://m.media-amazon.com/images/I/61zscDlfYbL._SY580_.jpg' style={{ maxHeight:'22rem', maxWidth:'22rem'  }}/>
+         
+          <br />
+          <div className='hover:bg-zinc-600 transition-hover opacity-70 duration-300 ease-in mix-blend-screen absolute top-0 left-0 w-full h-full z-10 grid place-items-center'></div>
+
+        </div>
+
+<div className="textUnderline" style={{position: 'relative', top: '-24%', left: '-40%'}}>
+  {/*        */}
+  <a className="linkU" href="/Store"  style={{ textDecoration: 'none', color: '#fff', fontSize: '20px'}}>Visit All </a>
+
+</div>
+        </div>
+
+</Card>
+
+      
 			<hr />
-          <div
-            className="border rounded-lg overflow-hidden relative"
-            onMouseOver={showHover}
-            onMouseLeave={hideHover}
-			style={{backgroundColor: 'lightblue'}}
-          >
-            <img
-              src="https://thump-images.vice.com/images/2016/08/01/edm-electronic-music-confusion-essay-body-image-1470064168.jpg?crop=1xw:0.8433382137628112xh;center,center&resize=1200:*"
-              className="img-fluid shadow-4 w-full h-full"
-              alt="..."
-           style={{width: "70%", height: '100%', objectFit: 'cover' , display: 'block', marginLeft: 'auto', marginRight: 'auto', padding: '5px' }} />
-            <div className={`${isHovering ? "block" : "hidden"}`}>
-              <a className="text-3xl text-white  absolute top-0 left-0 w-full h-full z-10 grid place-items-center">
-                EDM
-              </a>
-            </div>
-            <div className="hover:bg-zinc-600 transition-hover duration-300 opacity-70  ease-in mix-blend-screen absolute top-0 left-0 w-full h-full"></div>
-          </div>
-     
-      </Row> </div> <br /><br /><br /><br /><br /><br /><br />
-	  <footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed",
-          left: 0,
-          bottom: 0,
-          right: 0}}>
- Copyright © { yearTxt } Alrights Reserved.
+      
+<Card className="flex justify-center items-center" style={{backgroundColor: 'red', height: '40rem'}}>
+        <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', position:'relative', top: '10%'}}> Latest News </h2> <br /> <br />
+
+  <div style={{position: 'relative', top: '-10%'}}>
+      <NewsContextProvider2>
+      <News3 />
+    </NewsContextProvider2> 
+  </div>
+
+
+  
+
+<div className="textUnderline" style={{position: 'relative', top: '-24%', left: '-40%'}}>
+  {/*        */}
+  <a className="linkU" href="/News"  style={{ textDecoration: 'none', color: '#fff', fontSize: '20px'}}>Visit All </a>
+
+</div>
+
+</Card>
+<hr />
+<Card  style={{ width: '100%'}}>
+<Row className="contactForm" >
+
+<div  className="contactForm" style={{backgroundImage: `url("https://globalmusicrights.azureedge.net/images/contact-us/background.jpg")`, backgroundRepeat: 'no-repeat', height: '50rem', width:'100rem'}}>
+<div style={{ marginTop: '15%'}}>
+
+<h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', position:'relative', top: '2%'}}> Contact US </h2> <br /> <br />
+
+<p style={{textAlign:'center', color: 'white', position: 'relative', right: '0%', fontSize: '20px', fontFamily: 'proxima-nova-n1', padding: '10px'}}> Contact us regarding any questions about the website. We will provide you with the customer support that you need, I will support you with the issues feel free to send an email and I will assist at my earliest convienience.</p>
+<div className="thumbnail" style={{display: 'block', margin: '-7% auto'}}>
+<button onClick={navigateContact} className="click" style={{ position: 'relative' , right: '25%', width: '10%', top: '10%' }} > Contact Us </button>
+</div>
+
+
+</div> 
+
+
+</div><br /> 
+</Row>
+
+</Card>
+
+
+ </Row> 
+  <div className="playBar">
+  {/* <SpotifyPlayer
+  uri="spotify:album:1TIUsv8qmYLpBEhvmBmyBk"
+  size={size}
+  view={view}
+  theme={theme}
+/> */}
+         <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', position:'relative', top: '20%'}}> Listen To Music </h2> <br /> <br />
+         <p style={{textAlign:'center', color: 'white', position: 'relative', right: '0%', fontSize: '20px', fontFamily: 'proxima-nova-n1', padding: '10px', top: '20%'}}> Take a visit to the music page where you can search an artist and choose a album then listen to music.  </p> <br /> <br />
+         <Button onClick={navigateMusic} className="click" style={{ backgroundColor: 'grey', position: 'relative' , color: 'white', right: '-48%', width: '10%', top: '0%' }} > Listen </Button>
+
+    </div>
+
+</div>
+
+ </div>
+
+<footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed", left: '0',  bottom: '0', right: '0'}}>
+ <p> Copyright © { yearTxt } Alrights Reserved.</p>
   </footer>	
-      </div>
-  );
+
+
+
+</div>
+
+
+      );
+  
 }
 
 export default Home;

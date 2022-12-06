@@ -262,8 +262,8 @@ return (
           left: '40%',
           padding: '5px'
         }}
-        >
-           {i + 1}.{')'}  {item.track.name} 
+        > 
+           {i + 1}.{')'}  {item?.track?.name} 
             {item.track.artists.map(artist => {
               <Box>
                 {artist.name}
@@ -366,7 +366,7 @@ return (
                   padding: "5px",
                 }}
               >
-                {i + 1}.{")"} {item.track.name}
+                {i + 1}.{")"} {item.track?.name}
                 {item.track.artists.map((artist) => {
                   <Box>{artist.name}</Box>;
                 })}
@@ -408,7 +408,7 @@ return (
                   padding: "5px",
                 }}
               >
-                {i + 1}.{")"} {item.track.name}
+                {i + 1}.{")"} {item.track?.name}
                 {item.track.artists.map((artist) => {
                   <Box>{artist.name}</Box>;
                 })}
