@@ -1,6 +1,7 @@
 import React, {Component, createContext, useEffect, useState } from 'react';
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import LayoutOne from '/src/components/LayoutOne'
 
 import { NewsContextProvider } from '/src/NewsContext.jsx';
 import News2 from "/src/News2.jsx";
@@ -16,7 +17,7 @@ const navigateHome = () => {
  };
   return (
     <div>
-
+<LayoutOne />
       <div>
       <h1 className="head__text" style={{fontSize: '2.5rem',color: 'black', position: 'absolute', top: '8%', right: '43%'}}>Music News</h1>  <br /> <br /> <br /> 
     <a href="/Home"> <WestIcon style={{position: 'absolute', top: '16%', left: '10%'}} /> </a> 

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import '/src/store.css';
 import {useNavigate} from 'react-router-dom';
- 
+import LayoutOne from '/src/components/LayoutOne'
+
 import {Container,InputGroup,FormControl, Button, Row, Card, } from "react-bootstrap";
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
@@ -281,8 +282,9 @@ useEffect(() => {
 //console.log("data: " + albums.data)  <- you need to add .data after albums then access the data like you were
 
   return (
-    <div>
    
+    <div>
+   <LayoutOne /> <br /> <br />
       <h1 style={{textAlign: 'center', fontSize:'20px'}}> Welcome To The Store </h1>
       { !show ? (
         <>

@@ -1,33 +1,21 @@
-import { useState } from "react";
-import { Link, useNavigate, useLocation, BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate} from 'react-router-dom';
 
-export const AuthNav = ({ auth }) => {
-    <>
-         <nav className="nav-ul navbar navbar-dark bg-zinc-800 fixed w-full top-0 z-10">
-      <div className="container flex sm:flex-row flex-col gap-2 justify-between items-center">
-        <h1 className="fs-3">
-          <Link to='/' className="text-white ">
-              <span className="hover:text-blue-600">Music Essentials</span>
-          </Link>
-        </h1>
-        <div className="flex items-center gap-4">
-          <ul className="flex items-center gap-5 text-white">
-            <li>
-              <a href="/SignIn">Home</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+const navigateLogout = ({history}) => {
+  const handleChange = () => {
+    history.push('/')
+  }
 
-   </>
-};
+}
+const logout = () => {
+    window.location.href = '/';
+  }
+const Layout1 = () => {
+  
+  return (
 
-
-
-export const MainNav  = ({ auth })  => {
-  <>
-   <nav className="nav-ul navbar navbar-dark bg-zinc-800 fixed w-full top-0 z-10">
+  <div>
+     <nav className="nav-ul navbar navbar-dark bg-zinc-800 fixed w-full top-0 z-10">
     <div className="container flex sm:flex-row flex-col gap-2 justify-between items-center">
       <h1 className="fs-3">
         <Link to='/SignIn' className="text-white ">
@@ -77,6 +65,9 @@ export const MainNav  = ({ auth })  => {
           <li>
             <a href="/Contact">Contact</a>
           </li>
+          
+          <button onClick={logout}>Log Out</button>
+          
 
         </ul>
         {/* <div></div> */}
@@ -84,35 +75,8 @@ export const MainNav  = ({ auth })  => {
     </div>
   </nav>
     <button onClick={() => setIsAuthenticated(true)}>Sign In</button>
-  </>
+  </div>
+  );
 };
 
-
- const Navbar = () => {
-  const { isAuthenticated, setIsAuthenticated } = useState(true);
-  let location = useLocation();
-console.log(location);
-
-
-
-
-
-
-  return (
-<div>
-{ isAuthenticated ? (
-        <AuthNav />
-      ) : isAuthenticated ? (
-        <MainNav />
-      ) : <AuthNav />
-      }  </div>
-
-
-
-);
-
-
-
-};
-
-export default Navbar;
+export default Layout1;

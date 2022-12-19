@@ -9,6 +9,8 @@ import {
 } from "react-bootstrap";
 //import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+import LayoutOne from '/src/components/LayoutOne'
+
 import SpotifyPlayer from 'react-spotify-player'
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
@@ -71,6 +73,7 @@ function Albums() {
   //console.log("This is my tracks array: ", tracks); // test out the tracks object
   return (
     <>
+  <LayoutOne />
       {!albums.images ? (
         <div>.loading</div>
       ) : (
@@ -90,7 +93,7 @@ function Albums() {
                   
                   <div key={track.id} className="track-image" >
 
-                    <p className="hover:cyan">{track.name}</p> 
+                    <p style={{position: 'relative', top: '-10px'}}className="hover:cyan">{track.name}</p> 
 
                   </div>         
 

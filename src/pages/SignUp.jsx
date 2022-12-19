@@ -9,6 +9,7 @@ import axios from 'axios'
 import { Form, Alert } from "react-bootstrap";
 import '/src/signup.css';
 import SignIn from "./SignIn";
+import LayoutTwo from '/src/components/LayoutTwo'
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -113,6 +114,7 @@ function SignUp() {
 		<>
  
         <div>
+			<LayoutTwo />
           {" "}
           {login ? (
             <form onSubmit={handleSubmit} style={{marginTop: '10%', marginLeft: '40%'		}}>

@@ -1,16 +1,15 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { Alert } from "react-bootstrap";
 const LOGIN_URL = '/auth';
 import AuthContext from "/src/context/AuthProvider"; 
 import Button from '@mui/material/Button';
 import Footer from '../components/Footer';
 import Home from "./Home"; 
 import '/src/Signin.css';
-
+import Navbar from '/src/components/Navbar'
 import { Link, useNavigate } from 'react-router-dom';
 import { FaYoutube, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-
+import LayoutTwo from '/src/components/LayoutTwo'
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -20,15 +19,15 @@ function SignIn() {
 	
 
 
-	const [username, setusername] = useState();
-	const [password, setpassword] = useState();
+	const [username, setusername] = useState(' ');
+	const [password, setpassword] = useState(' ');
 	const [errMsg, setErrMsg] = useState();
   const [successMsg, setSuccess] = useState();
 	const [flag, setFlag] = useState(false);
 
 	const [home, setHome] = useState(true);
 
-	const initialValues = { username: "", password: "" };
+	const initialValues = useState({ username: "", password: "" });
 	const [formValues, setFormValues] = useState(initialValues);
 	const [formErrors, setFormErrors] = useState({});
 	const [isSubmit, setIsSubmit] = useState(false);
@@ -38,25 +37,6 @@ function SignIn() {
 		const { name, value } = e.target;
 		setFormValues({ ...formValues, [name]: value });
 	  };
-
-	// const handleLogin = () => {
-	// 	const data = {
-	// 		userName: userName,
-	// 		password: password,
-			
-	// 	};
-	// 	const url = 'https://localhost:44372/api/Test/Login';
-	// 	axios.post(url, data).then((result) =>{
-	// 		//if(result.data == "Data Inserted.")
-	// 		alert(result.data);
-		
-	// 			//alert(result.data);
-	// 		}).catch((error)=>{
-	// 			alert(error);
-	// 		})
-		
-
-	// }
 
 
     useEffect(() => {
@@ -79,6 +59,13 @@ function SignIn() {
 			let user = localStorage.getItem("bredding")?.replace(/"/g, ""); // works
 			let pass = localStorage.getItem("breddingPassword")?.replace(/"/g, ""); // works
 			setFormErrors(validate(formValues));
+			//setFormErrors(validate(username));
+			//setFormErrors(validate(password));
+		
+			// else if (password == pass || username == user) {
+			// 	setIsSubmit(true);
+
+			// }
 
 		   // setIsSubmit(true);
 			console.log(isSubmit)
@@ -91,14 +78,12 @@ function SignIn() {
 			 if (!username || !password) {
 		  	 setFlag(true);
 			  console.log("EMPTY");
-			 } else if (password !== pass || username !== user) {
-				setIsSubmit(false);
-			} else if (password == pass || username == user) {
-				setIsSubmit(true);
-
+			 } else if ((password !== pass) || (username !== user)) {
+				setFlag(false);
 			} else {
-			   setHome(!home);
-			   setIsSubmit(false);
+				alert("Sucessfully logged in");
+				setHome(!home);
+			   setFlag(false);
 			 }
 
 			
@@ -129,13 +114,12 @@ function SignIn() {
 
 	return (
 		<div>
-			<br /> <br /> <br /> 
-		 {Object.keys(formErrors).length === 0 && isSubmit ? ( 
-				<Home />
-) : (
-        <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
-      )}
+		    <LayoutTwo />
+
+		{home ? 
+
 		  <form onSubmit={handleLogin}  style={{marginTop: '10%', marginLeft: '30%'		}} >
+
 			<h3 style={{ fontSize: '2.5rem', fontWeight: 'bold'}}>Log In</h3>
 			<div className="form-group" style={{width: "50%"}}>
 			  <label >Username</label> <br />
@@ -145,8 +129,7 @@ function SignIn() {
 				className="form-control"
 				placeholder="Enter Username"
 				value={formValues.userName}
-				onChange={handleChange}
-				/>
+				onChange={(event) => setusername(event.target.value)}				/>
 			</div>
 			<p>{formErrors.userName}</p>
 
@@ -160,12 +143,11 @@ function SignIn() {
 
               placeholder="password"
               value={formValues.password}
-              onChange={handleChange}
-				/>
+			  onChange={(event) => setpassword(event.target.value)}				/>
 			</div><br />
 			<p>{formErrors.password}</p>
 			<br />  
-			<button type="submit"  className="btn btn-dark btn-sm" style={{width: "100px" , height: '30px', fontSize: '15px'}}>
+			<button type="submit"  onClick={() => {  alert.show('Oh look, an alert!')  }}className="btn btn-dark btn-sm" style={{width: "100px" , height: '30px', fontSize: '15px'}}>
 			  Login
 			</button>
   
@@ -181,7 +163,9 @@ function SignIn() {
 			  Sign Up
 			</button>
 		  </form>
-		) 
+		  : <Home />
+		}
+ 
 		
 					<Footer />
 

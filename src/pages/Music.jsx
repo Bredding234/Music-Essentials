@@ -9,6 +9,7 @@ import '/src/music.css'
 import ReactAudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import {genreData} from '../components/data/data'
+import LayoutOne from '/src/components/LayoutOne'
 
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
@@ -31,6 +32,7 @@ function Music() {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [artists, setArtists] = useState(null);
 
   const musicTracks = [
     {
@@ -126,6 +128,47 @@ function Music() {
     fetch("https://accounts.spotify.com/api/token", authParameters)
       .then((result) => result.json())
       .then((data) => setAccessToken(data.access_token));
+
+      var authPlaylistParameters = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body:
+          "grant_type=client_credentials&client_id=" +
+          CLIENT_ID +
+          "&client_secret=" +
+          CLIENT_SECRET,
+      };
+
+
+fetch("https://accounts.spotify.com/api/token", authPlaylistParameters)
+.then((result) => result.json())
+.then(({ access_token }) => {
+  // API ACCESS TOKEN
+  var authPlaylistParameters = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${access_token}`,
+    },
+  };
+
+
+    
+
+  
+  fetch('https://api.spotify.com/v1/artists/artists?ids={1ZwdS5xdxEREPySFridCfh, 0eDvMgVFoNV3TpwtrVCoTj}', authPlaylistParameters)
+    .then((response) => response.json())
+    .then((data) => {   
+    console.log( 'artist', data); // works(displays playlist based the specific one I passed it).
+    setArtists(data); 
+    console.log({ artists }); // empty object
+    });
+});
+
+
+   
   }, []);
 
 // Search
@@ -189,12 +232,12 @@ const hideHover = () => {
 
 return (
 <div className="bodyPages" >	
-	
+	<LayoutOne />
     <div id="SearchMusic" style={{}} >		
       {/* style={{ height: 40, borderColor: 'black', borderWidth: 1, display: 'block', marginRight: 'auto', marginLeft: 'auto' }} */}
-      <p style={{ color: "black", textAlign: "center", fontSize: "25px" }}>
+ <br /> <br />     <p style={{ color: "white", textAlign: "center", fontSize: "25px" }}>
         {" "}
-        Search for artist
+        Search for any song or album
       </p> <br /> <br /> 
       <InputGroup className="mb-1" size="sm">
         <FormControl
@@ -208,7 +251,7 @@ return (
 			search()
 			setSearchInput(event.target.value)}}
           id="firstName"
-          placeholder="Search for artist"
+          placeholder="Search artist"
           autoComplete="given-name"
         />
       </InputGroup>
@@ -228,6 +271,11 @@ return (
       </Button>
 
       <Container>
+              {artists && <img src={artists.images[0].url} className="absolute bottom-[20%] left-20 w-[400px] h-[350px]"  /> }
+
+      </Container>
+
+      <Container>
         {!albums ? (
           <div> </div>
         ) : (
@@ -238,9 +286,9 @@ return (
               return (
                 <Link key={album.id} to={`/album/${album.id}`}>
                   <Card   style={{ cursor: "pointer" }}>
-                    <Card.Img src={album.images[0].url} /> <br /> 
+                    <Card.Img src={album.images[0].url} /> 
                     <Card.Body>
-                      <Card.Title className="ml-3"> {album.name}</Card.Title>
+                      <Card.Title className="ml-3"> {album.name}</Card.Title>  
                       <Card.Title className="text-muted"> {album.artists[0].name }</Card.Title>
 
                     </Card.Body> 

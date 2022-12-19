@@ -18,9 +18,10 @@ import { NewsContextProvider2 } from '/src/NewsContext2.jsx';
 import News3 from "/src/News3.jsx";
 import '/src/News2.css';
 import { SliderData } from '/src/SliderData.js';
+import LayoutOne from '/src/components/LayoutOne'
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
-
+import { AuthNav, MainNav } from '/src/components/Navbar'; 
 //import 'bootstrap/dist/css/bootstrap.min.css'
 import {
   Container,
@@ -239,11 +240,13 @@ const theme = 'black'; // or 'white'
 
 
   return (
+
 <div>  
+    <LayoutOne />
 
 		<div className="backgroundWallpaper" style={{ backgroundColor: 'black', height: '40rem', width: '100rem'}} href="#SearchMusic">
 			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
-			<img  style={{width: "100%", height: '101%', position: 'relative'  ,   padding: '5px' }} src="https://i.pinimg.com/originals/f0/18/c6/f018c6cb14e8b3772e7a6d040e497cf5.jpg"  />
+			<img style={{width: "100%", height: '101%', position: 'relative'  ,   padding: '5px' }} src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb"  />
 		</div>
   <div style={{ backgroundColor: 'grey', height: '20%', width: '80%'}}>
 			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
@@ -414,6 +417,7 @@ const theme = 'black'; // or 'white'
 <footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed", left: '0',  bottom: '0', right: '0'}}>
  <p> Copyright © { yearTxt } Alrights Reserved.</p>
   </footer>	
+
 
 
 

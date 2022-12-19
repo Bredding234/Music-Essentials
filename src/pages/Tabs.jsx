@@ -23,7 +23,6 @@ function Tabs() {
 
   const CLIENT_ID = import.meta.env.VITE_CLIENT_ID;
   const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET;
-  const [playlists, setPlaylists] = useState(null);
   const [playlists2, setPlaylists2] = useState(null);
   const [playlists3, setPlaylists3] = useState(null);
   const [playlists4, setPlaylists4] = useState(null);

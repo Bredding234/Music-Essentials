@@ -10,7 +10,7 @@ export const NewsContextProvider2 = (props2) => {
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/everything?q=music-news&from=2022-11-04&pageSize=3&apiKey=${apiKey2}`
+        `https://newsapi.org/v2/everything?q=music-news&from=2022-12-14&pageSize=3&apiKey=${apiKey2}`
       )
       .then((response) => setData2(response.data))
       .catch((error) => console.log(error));

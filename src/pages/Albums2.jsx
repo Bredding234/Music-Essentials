@@ -8,6 +8,7 @@ import {
   Card
 } from "react-bootstrap";
 import '/src/News2.css';
+import LayoutOne from '/src/components/LayoutOne'
 //import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import SpotifyPlayer from 'react-spotify-player'
@@ -77,6 +78,7 @@ function Albums2() {
 
   return (
     <>
+    <LayoutOne />
       {!albums.images ? (
         <div>.loading</div>
       ) : (

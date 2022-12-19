@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tabs from './Tabs';
+import LayoutOne from '/src/components/LayoutOne'
+
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
 //import { useParams } from "react-router-dom";
@@ -7,6 +9,7 @@ function Pop() {
  
   return (
     <div>
+      <LayoutOne />
    <Tabs /> 
    
 

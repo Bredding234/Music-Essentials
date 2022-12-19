@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 const currentYear = (new Date().getFullYear());
 const yearTxt = currentYear === 2022 ? "2022" : "2022 - "+ currentYear;
+import Footer from '../components/Footer';
+
+import LayoutOne from '/src/components/LayoutOne'
+
 function Contact() {
     const [formStatus, setFormStatus] = React.useState('Send')
     const onSubmit = (e) => {
@@ -17,7 +21,10 @@ function Contact() {
 
 
   return (
-    <div className="container mt-5">
+    <div>
+            <LayoutOne />
+
+    <div className="container mt-1">
     <h2 className="title"style={{ textAlign: 'center' , fontWeight: 'bold' , fontSize:'2.5rem',  marginTop: '10%' }}>Contact Us</h2> <br /> <br />
     <form onSubmit={onSubmit}>
       <div className="mb-3">
@@ -42,11 +49,11 @@ function Contact() {
         {formStatus}
       </button>
     </form>
-    <footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed", left: '0',  bottom: '0', right: '0'}}>
- <p> Copyright © { yearTxt } Alrights Reserved.</p>
-  </footer>	
+<br /> <br />
+      <Footer />
+  </div> 
 
-  </div>
+    </div>
 
   )
 }
