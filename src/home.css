@@ -1,13 +1,13 @@
 .slider {
     position: relative;
-    height: 100vh;
-    display: flex;
+    /* height: 100vh; */
+    /* display: flex; */
     justify-content: center;
     align-items: center;
   }
   
   .image {
-    width: 1000px;
+    /* width: 1000px; */
     height: 600px;
     border-radius: 10px;
   }
@@ -37,12 +37,13 @@
   .slide {
     opacity: 0;
     transition-duration: 1s ease;
+    scale: .9;
   }
   
   .slide.active {
     opacity: 1;
     transition-duration: 1s;
-    transform: scale(1.08);
+    scale: 1;
   }
   
 

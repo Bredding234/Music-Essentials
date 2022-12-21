@@ -13,7 +13,7 @@ import axios from "axios"
 import ReactAudioPlayer from "react-h5-audio-player";
 import SpotifyPlayer from 'react-spotify-player'
 import "react-h5-audio-player/lib/styles.css";
-import ImageSlider from '/src/ImageS.jsx'; 
+import ImageSlider from '../ImageS'; 
 import { NewsContextProvider2 } from '/src/NewsContext2.jsx';
 import News3 from "/src/News3.jsx";
 import '/src/News2.css';
@@ -241,33 +241,31 @@ const theme = 'black'; // or 'white'
 
   return (
 
-<div>  
+<div className="w-full">  
     <LayoutOne />
 
-		<div className="backgroundWallpaper" style={{ backgroundColor: 'black', height: '40rem', width: '100rem'}} href="#SearchMusic">
-			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
-			<img style={{width: "100%", height: '101%', position: 'relative'  ,   padding: '5px' }} src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb"  />
+		<div className="backgroundWallpaper" style={{ backgroundColor: 'black', height: '40rem', width: '100%', position: 'relative',}} href="#SearchMusic">
+			 <a href="#SearchMusic" > <h1 className="underline" style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
+			<img style={{width: "100%", height: '100%',  }} src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&w=1080&fit=max&q=80&fm=jpg&crop=entropy&cs=tinysrgb"  />
 		</div>
-  <div style={{ backgroundColor: 'grey', height: '20%', width: '80%'}}>
-			 <a href="#SearchMusic"> <h1 style={{  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}> Listen, Search, and Discover new music everyday. </h1></a>
-		</div>
-<div className="genre-image" >
+<div className="genre-image py-4 w-full" >
   <h2 style={{fontSize:'2.5rem', textAlign:'center', fontWeight: 'bold'}}> Pick Genre </h2> <br /> <br />
   <ImageSlider slides={SliderData} />
 </div> 
   <div id="SearchMusic" >		
       {/* style={{ height: 40, borderColor: 'black', borderWidth: 1, display: 'block', marginRight: 'auto', marginLeft: 'auto' }} */}
-      <div style={{backgroundColor: 'white', height: '40rem'}}>
+      <div style={{backgroundColor: 'white',position: "relative",textAlign: "center",}} className="before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-black before:opacity-50">
+          	<img  style={{ width: '100%', height: '100%' }} src="https://wallpaperaccess.com/full/1502779.jpg"   />
 
-      <h2 style={{ color: "black", position: "relative", left: '50%' , top: '30%',  fontSize: "30px", fontWeight: "700", height: '90%', fontFamily: 'Poppins,sans-serif', lineHeight: '1.4074' }}>
+      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '25px', fontFamily: 'Georgia', color: 'white' }}>
+      <h2 style={{ color: "white",  fontSize: "30px", fontWeight: "700",  fontFamily: 'Poppins,sans-serif', lineHeight: '1.4074',  }}>
         {" "}		
 
       Visit the <a href="/music"> Music  </a> Page       </h2>    
-          	<img  style={{ width: '40%', height: '60%', position: 'relative', bottom: '75%', Left: '10%' }} src="https://wallpaperaccess.com/full/1502779.jpg"  />
 
 
-      <p style={{ fontSize:'20px',display: 'flex', padding: '5px' , position: 'relative', bottom: '45rem' , left: '42%' }}> Take a look at the music link above, you will be able to seach for your favorite artist <br /> and can choose any song or album. The customer will have the option to choose from <br /> any genre of their music interest.  </p>
-
+      <p style={{ fontSize:'20px',}}> Take a look at the music link above, you will be able to seach for your favorite artist <br /> and can choose any song or album. The customer will have the option to choose from <br /> any genre of their music interest.  </p>
+        </div>
       </div>
 
 
@@ -298,13 +296,9 @@ const theme = 'black'; // or 'white'
         )}
       </Container>
 
-      <div className="flex border justify-center items-center gap-3">
-       
-      </div>
+      <Row className="w-full">
 
-      <Row>
-
-<Card className="flex justify-center items-center" style={{backgroundColor: 'grey', height: '40rem'}}>
+<Card className="flex justify-center items-center" style={{backgroundColor: 'grey', height: '40rem', width: "100%"}}>
 <div style={{position: 'relative', top: '50%'}}>
     <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', top: '20%'}}>  Store </h2> <br /> <br />
 
@@ -353,19 +347,17 @@ const theme = 'black'; // or 'white'
       
 			<hr />
       
-<Card className="flex justify-center items-center" style={{backgroundColor: 'red', height: '40rem'}}>
-        <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', position:'relative', top: '10%'}}> Latest News </h2> <br /> <br />
+<Card className="flex justify-center items-center flex-col" style={{backgroundColor: 'red', height: '40rem'}}>
+        <h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', paddingBottom: '.5rem'}}> Latest News </h2> 
 
-  <div style={{position: 'relative', top: '-10%'}}>
       <NewsContextProvider2>
       <News3 />
     </NewsContextProvider2> 
-  </div>
 
 
   
 
-<div className="textUnderline" style={{position: 'relative', top: '-24%', left: '-40%'}}>
+<div className="textUnderline" >
   {/*        */}
   <a className="linkU" href="/News"  style={{ textDecoration: 'none', color: '#fff', fontSize: '20px'}}>Visit All </a>
 
@@ -376,15 +368,15 @@ const theme = 'black'; // or 'white'
 <Card  style={{ width: '100%'}}>
 <Row className="contactForm" >
 
-<div  className="contactForm" style={{backgroundImage: `url("https://globalmusicrights.azureedge.net/images/contact-us/background.jpg")`, backgroundRepeat: 'no-repeat', height: '50rem', width:'100rem'}}>
-<div style={{ marginTop: '15%'}}>
+<div  className="contactForm flex flex-col items-center justify-center text-center" style={{backgroundImage: `url("https://globalmusicrights.azureedge.net/images/contact-us/background.jpg")`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover', height: '100vh', width:'100%'}}>
+<div>
 
-<h2 style={{fontSize:'3.5rem', textAlign:'center', color: 'white', position:'relative', top: '2%'}}> Contact US </h2> <br /> <br />
+<h2 className="text-4xl font-semibold text-white"> Contact US </h2>
 
-<p style={{textAlign:'center', color: 'white', position: 'relative', right: '0%', fontSize: '20px', fontFamily: 'proxima-nova-n1', padding: '10px'}}> Contact us regarding any questions about the website. We will provide you with the customer support that you need, I will support you with the issues feel free to send an email and I will assist at my earliest convienience.</p>
-<div className="thumbnail" style={{display: 'block', margin: '-7% auto'}}>
-<button onClick={navigateContact} className="click" style={{ position: 'relative' , right: '25%', width: '10%', top: '10%' }} > Contact Us </button>
-</div>
+<p style={{textAlign:'center', color: 'white',  fontSize: '20px', fontFamily: 'proxima-nova-n1',}} className="py-6"> Contact us regarding any questions about the website. We will provide you with the customer support that you need, <br /> I will support you with the issues feel free to send an email and I will assist at my earliest convienience.</p>
+
+<button onClick={navigateContact} className="btn btn-primary" > Contact Us </button>
+
 
 
 </div> 

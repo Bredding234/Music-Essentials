@@ -7,8 +7,7 @@ function News3(props) {
   console.log(data2);
 
   return (
-    <div>
-<br /> <br /> <br />
+    <>
       <div className="all__news">
         {data2
           ? data2.articles.map((news) => (
@@ -16,7 +15,7 @@ function News3(props) {
             ))
           : "Loading"}
       </div>
-    </div>
+    </>
   );
 }
 

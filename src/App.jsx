@@ -29,8 +29,8 @@ const AuthLayout = ({ auth }) => (
   
   const MainLayout = () => (
 	<>
-	  <MainNav />
-	  <Outlet />
+		<MainNav />
+		<Outlet />
 	</>
   );
   
