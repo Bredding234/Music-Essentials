@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { MDBRipple } from "mdb-react-ui-kit";
-import Footer from './footer'
+import Footer from '../components/Footer';
 import Album from "./Albums";
 import {useNavigate} from 'react-router-dom';
 import SpotifyWebApi from "spotify-web-api-node"
@@ -406,9 +406,7 @@ const theme = 'black'; // or 'white'
 
  </div>
 
-<footer className="footer" style={{backgroundColor: 'black',color: 'white', textAlign:'center', position: "fixed", left: '0',  bottom: '0', right: '0'}}>
- <p> Copyright © { yearTxt } Alrights Reserved.</p>
-  </footer>	
+<Footer/>
 
 
 
