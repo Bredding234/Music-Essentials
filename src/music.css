@@ -1,0 +1,12 @@
+
+.bodyPages{
+
+    background-image: url("https://wallpapercave.com/wp/xOrOQoy.jpg"); 
+     /* Full height */
+     height: 100rem;
+     background-size: cover;
+     background-repeat: no-repeat;
+     background-position: center center;
+    background-attachment: fixed;
+}
+

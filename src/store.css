@@ -1,0 +1,224 @@
+.overlay{
+    position: absolute;
+    top: 50%;
+    left: 105px;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    padding: 10px;
+    width: 250px;
+    height: 250px;
+    background: silver;
+    cursor: pointer;
+  
+  }
+  
+  .content{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+  }
+
+
+.imageone:hover .overlay{
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+
+/* image 2 */
+
+.overlay2{
+    position: absolute;
+    top: 50%;
+    left: 42%;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    padding: 10px;
+    width: 250px;
+    height: 250px;
+    background: silver;
+    cursor: pointer;
+  
+  }
+  
+  .content2{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+  }
+
+
+.imagetwo:hover .overlay2{
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+/* image 3 */
+
+
+.overlay3{
+    position: absolute;
+    top: -11.5rem;
+    left: 42%;
+    right: 0;
+    bottom: 0;
+    opacity: 0;
+    padding: 10px;
+    width: 250px;
+    height: 250px;
+    background: silver;
+    cursor: pointer;
+  
+  }
+  .imagethree{
+    top: -15px;
+  }
+  
+  .content3{
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+  }
+
+
+.imagethree:hover .overlay3{
+    transform: scale(1.2);
+    opacity: 0.8;
+}
+
+
+
+/* image 4 */
+
+
+.imagefour{
+    position: absolute;
+    top: 170%;
+}
+
+
+.content4{
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: verdana;
+  text-align: center;
+}
+
+.overlay4{
+  position: absolute;
+  top: -15rem;
+  left: 105px;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  background: silver;
+  cursor: pointer;
+
+}
+.imagefour:hover .overlay4{
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+
+/* image 5 */
+
+
+.imagefive{
+    position: absolute;
+    top: 170%;
+}
+
+
+
+.content5{
+  position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: verdana;
+    text-align: center;
+}
+
+.overlay5{
+  position: absolute;
+  top: -14.7rem;
+  left: 42%;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  background: silver;
+  cursor: pointer;
+
+}
+.imagefive:hover .overlay5{
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+
+/* image 6 */
+
+
+.imagesix{
+    position: absolute;
+}
+  
+
+.overlay6{
+  position: absolute;
+  top: -12rem;
+  left: 42%;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  background: silver;
+  cursor: pointer;
+
+}
+.imagesix{
+  top: -15px;
+}
+
+.content6{
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: verdana;
+  text-align: center;
+}
+
+
+.imagesix:hover .overlay6{
+  transform: scale(1.2);
+  opacity: 0.8;
+}

@@ -1,0 +1,103 @@
+.slider {
+    position: relative;
+    /* height: 100vh; */
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .image {
+    /* width: 1000px; */
+    height: 600px;
+    border-radius: 10px;
+  }
+  
+  .right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 32px;
+    font-size: 3rem;
+    color: #000;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 32px;
+    font-size: 3rem;
+    color: #000;
+    z-index: 10;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+    scale: .9;
+  }
+  
+  .slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    scale: 1;
+  }
+  
+
+  
+
+  .textUnderline .textUnderlines {
+    display: inline;
+    position: relative;
+    overflow: hidden;
+  }
+  .textUnderline .textUnderlines:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: -5px;
+    background: red;
+    height: 8px;
+    transition-property: left right;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+  }
+  .textUnderline .textUnderlines:hover:after,
+  .textUnderline .textUnderlines:focus:after,
+  .textUnderline .textUnderlines:active:after {
+    right: 0;
+  }
+  
+  .linkU{
+    position: relative;
+  }
+  
+  .linkU:after{
+    content: '';
+    position: absolute;
+    width: 0; height: 3px;
+    display: block;
+    margin-top: 5px;
+    right: 0;
+    background: #fff;
+    transition: width .2s ease;
+    -webkit-transition: width .2s ease;
+  }
+   
+  .linkU:hover:after{
+    width: 100%;
+    left: 0;
+    background: #fff;
+  }  
+
+.card:hover{
+  background-color: silver;
+  opacity: 1;
+  visibility: visible;
+
+}
